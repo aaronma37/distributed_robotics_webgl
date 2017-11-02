@@ -1,0 +1,28 @@
+<body>
+<h1>Open chat</h1>
+<div class="chat">
+        <ul id="messages">
+
+        </ul>
+</div>
+<hr />
+<input size="28" type="text" id="message" />
+<input type="button" onclick="send()" value="send" />
+
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+        var socket = io();
+
+        function send(){
+            var message = document.getElementById("message").value;
+            socket.emit("send", { "message" : message });
+            document.getElementById("message").value = "";
+        }
+
+  socket.on("new", function(data){
+            console.log("NEW MESSAGE : ", data);
+            var chatMessage = document.createElement("li");
+            chatMessage.innerHTML = data.message;
+    document.getElementById("messages").appendChild(chatMessage)
+  });
+</script>

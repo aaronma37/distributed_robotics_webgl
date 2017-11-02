@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<title>Learning WebGL &mdash; lesson 6</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+
+    varying vec2 vTextureCoord;
+
+    uniform sampler2D uSampler;
+
+    void main(void) {
+        gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    varying vec2 vTextureCoord;
+
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aTextureCoord;
+    }
+</script>
+
+<script src="agent.js"></script>
+<script src="render.js"></script>
+
+</head>
+
+
+<body onload="webGLStart();">
+    <canvas id="lesson06-canvas" style="border: none;" width=window.innerWidth height=document.body.clientHeight></canvas>
+<script>
+var canvas = document.getElementById("lesson06-canvas");
+canvas.width = window.innerWidth;
+canvas.height = document.body.clientHeight;
+</script>
+
+<script>
+
+
+  	socket.on("new", function(data){
+          
+            console.log("NEW MESSAGE : ", data);
+    	    console.log(socket.io.engine.id);
+	    self_id = socket.io.engine.id;
+	    if (self_id == data.id){
+		    if (!(data.id in agents)){
+			agents[data.id] = new Agent(data.theta,data.omega,crateTextures);
+		    }
+		return;
+	    }
+
+	    if (!(data.id in agents)){
+		agents[data.id] = new Agent(data.theta,data.omega,crateTextures);
+	    }
+	    else{
+	    	agents[data.id].theta=data.theta;
+		agents[data.id].omega=data.omega;
+		agents[data.id].ping=0.0;
+	    }
+
+
+            //var chatMessage = document.createElement("li");
+            //chatMessage.innerHTML = data.message;
+    //document.getElementById("messages").appendChild(chatMessage)
+	//    if (data.message == "a"){
+	//	xSpeed += 1;
+	//	agents[0].x++;	
+	//}
+  });
+
+</script>
+</body>
+
+</html>
