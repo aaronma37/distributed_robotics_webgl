@@ -27,14 +27,16 @@ var port = process.env.PORT || 3000;
 
 server.listen(port);
 
-app.use(express.static('./'));
+//app.use(express.static(__dirname + '/static'));
+
+app.use(express.static(__dirname + '/static'));
 
 /*const server = express()
   .use((req, res) => res.sendFile(__dirname + '/home.html') )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 */
 app.get('/',function(req, res){
-  res.sendFile(__dirname + '/home.html');
+  res.sendFile(__dirname + '/static/home.html');
 });
 
 //const io = socketIO(server);
