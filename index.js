@@ -13,9 +13,15 @@ io = require('socket.io').listen(server);
 
 var agent_list = [];
 
-server.listen(3000);
+
+
+//server.listen(3000);
 
 app.use(express.static('./'));
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 app.get('/',function(req, res){
   res.sendFile(__dirname + '/home.html');
