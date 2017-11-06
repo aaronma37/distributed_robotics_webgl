@@ -23,10 +23,10 @@ const PORT = process.env.PORT || 3000;
 var agent_list = [];
 
 
-const PORT = process.env.PORT || 8080;
 
 
-server.listen(PORT);
+server.listen(process.env.PORT || 3000);
+
 
 //app.use(express.static(__dirname + '/static'));
 
