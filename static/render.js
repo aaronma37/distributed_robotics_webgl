@@ -169,7 +169,7 @@
         crateImage.onload = function () {
             handleLoadedTexture(crateTextures)
         }
-        crateImage.src = "rect.png";
+        crateImage.src = "static/rect.png";
 
         var ringImage = new Image();
 
@@ -182,7 +182,7 @@
         ringImage.onload = function () {
             handleLoadedTexture(ringTextures)
         }
-        ringImage.src = "ring.png";
+        ringImage.src = "static/ring.png";
     }
 
     //agents.push(new Agent(0,0,-25,crateTextures));
