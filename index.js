@@ -3,6 +3,15 @@ app = express(),
 server = require('http').createServer(app),
 io = require('socket.io').listen(server);
 
+/*
+var express = require('express'); // Get the module
+const socketIO = require('socket.io');
+
+const path = require('path');
+
+const PORT = process.env.PORT || 3000;
+
+*/
   class Agent {
 	constructor(theta,omega,ping){
 		this.theta=theta;
@@ -13,20 +22,21 @@ io = require('socket.io').listen(server);
 
 var agent_list = [];
 
+var port = process.env.PORT || 3000;
 
-
-//server.listen(3000);
+server.listen(port);
 
 app.use(express.static('./'));
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
+/*const server = express()
+  .use((req, res) => res.sendFile(__dirname + '/home.html') )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
+*/
 app.get('/',function(req, res){
   res.sendFile(__dirname + '/home.html');
 });
 
+//const io = socketIO(server);
 
 
 
