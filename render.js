@@ -1,6 +1,3 @@
-
-
-
     var gl;
     var socket = io();
 

@@ -1,17 +1,23 @@
-var express = require('express'),
-app = express(),
-server = require('http').createServer(app),
-io = require('socket.io').listen(server);
+'use strict';
 
-/*
-var express = require('express'); // Get the module
+const express = require('express');
 const socketIO = require('socket.io');
-
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'index.html');
 
-*/
+
+const server = express()
+  .use(express.static('./'))
+   .get('/',function(req, res){
+  res.sendFile(__dirname + '/home.html');
+  })
+  //.use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const io = socketIO(server);
+
   class Agent {
 	constructor(theta,omega,ping){
 		this.theta=theta;
@@ -21,24 +27,6 @@ const PORT = process.env.PORT || 3000;
     }
 
 var agent_list = [];
-
-
-var port = process.env.PORT || 3000;
-
-server.listen(port);
-
-app.use(express.static('./'));
-
-/*const server = express()
-  .use((req, res) => res.sendFile(__dirname + '/home.html') )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-*/
-app.get('/',function(req, res){
-  res.sendFile(__dirname + '/home.html');
-});
-
-//const io = socketIO(server);
-
 
 
 io.on('connection',function(socket){
